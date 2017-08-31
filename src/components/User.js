@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { userList } from '../actions/action_users';
+import { fetchUsers, fetchUsersSuccess, fetchUsersFailure } from '../actions/action_users';
 
 class User extends Component{
 
   componentDidMount(){
-    this.props.userList()
+    this.props.fetchUsers()
   }
   createUserList(){
     return this.props.users.map((user) =>{
       return(
-        <li key={user.id}> {user.fname} {user.lname}
+        <li key={user.id}> {user.country_name} {user.continent_name}
           <Link to={`/users/show/${user.id}`}>Show</Link>
-        </li> 
+        </li>
       )
     });
   }
@@ -31,14 +30,18 @@ class User extends Component{
 }
 function mapStateToProps(state){
   return{
-    users: state.users
+    users: state.users.usersList.users
   }
 }
 
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({
-    userList: userList
-  }, dispatch)
+  return {
+    fetchUsers: () => {
+      (dispatch(fetchUsers()).payload).then((response) => {
+          !response.error ? dispatch(fetchUsersSuccess(response.data)) : dispatch(fetchUsersFailure(response.data));
+        })
+    }
+  }
 }
 
 const user = connect(mapStateToProps, matchDispatchToProps) (User)

@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { showUser } from '../../actions/action_users';
+import { fetchUser, fetchUserSuccess, fetchUserFailure, resetActiveUser } from '../../actions/action_users';
 
 
 class ShowUser extends Component{
 
   componentDidMount(){
-    this.props.showUser(this.props.match.params.id)
+    this.props.fetchUser(this.props.match.params.id)
   }
 
   render(){
     return(
       <div>
-        <p>First Name: {this.props.user.fname}</p>
-        <p>Last Name: {this.props.user.lname}</p>
+        <p>First Name: {JSON.stringify(this.props.user)}</p>
+        <p>Last Name: {}</p>
       </div>
     )
   }
@@ -22,14 +22,21 @@ class ShowUser extends Component{
 
 function mapStateToProps(state, props){
   return{
-    user: state.users
+    user: state.users.activeUser.user
   }
 }
 
 function matchDispatchToProps(dispatch){
-  return bindActionCreators({
-    showUser: showUser
-  }, dispatch)
+  return {
+    fetchUser: (id) => {
+      (dispatch(fetchUser(id)).payload).then((response) => {
+        if(response && response.status !== 200)
+          {dispatch(fetchUserFailure(response.data));}
+        else
+          {dispatch(fetchUserSuccess(response.data));}
+      })
+    }
+  }
 }
 const show_user = connect(mapStateToProps,matchDispatchToProps) (ShowUser)
 export default show_user;
