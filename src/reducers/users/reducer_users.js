@@ -16,9 +16,9 @@ const users = (state = INITIAL_STATE, action) => {
       return {...state, usersList: { users: [], error: error, loading: false}}
 
     case "FETCH_USER":
-      return { ...state, activeUser:{...state.activeUser, loading: true}};
+      return { ...state, activeUser:{...state.activeUser, error: null, loading: true}};
     case "FETCH_USER_SUCCESS":
-      return { ...state, activeUser: {user: action.payload, error:null, loading: false}};
+      return { ...state, activeUser: {user: action.payload, error: null, loading: false}};
     case "FETCH_USER_FAILURE":
       error = action.payload || {message: action.payload.message};//2nd one is network or server down errors
       return { ...state, activeUser: {user: null, error:error, loading:false}};
