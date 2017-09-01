@@ -6,17 +6,18 @@ class User extends Component{
   componentDidMount(){
     this.props.fetchUsers()
   }
+
   createUserList(users){
     return users.map((user) =>{
       return(
         <li key={user.id}> {user.country_name} {user.continent_name}
           <Link to={`/users/show/${user.id}`}>Show</Link>
+          <button onClick={this.props.deleteUser.bind(this,user.id, this.props.usersList.users)}>Delete</button>
         </li>
       )
     });
   }
   render(){
-
     const { users, loading, error } = this.props.usersList;
     if(loading) {
       return <div className="container"><h1>Users</h1><h3>Loading...</h3></div>

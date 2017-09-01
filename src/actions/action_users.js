@@ -57,9 +57,41 @@ export function resetActiveUser(){
   }
 }
 
-
 export function resetDeletedUser(){
   return {
     type: "REST_DELETED_USER"
+  }
+}
+
+export function deleteUser(id){
+  const request = axios({
+    method: 'delete',
+    url: `http://localhost:3000/api/remove-country/${id}`,
+    headers: {
+    'Authorization': "pass_auth_tokan"
+    }
+  })
+  return{
+    type: "DELETE_USER",
+    payload: request
+  }
+}
+
+export function userDeletedSuccess(id,deletedUser,usersList){
+  let user = usersList.find(function(user){
+      return user.id === id
+    })
+  usersList.splice(usersList.indexOf(user),1)
+  return {
+    type: "USER_DELETED_SUCCESS",
+    payload: deletedUser,
+    users: usersList
+  }
+}
+
+export function userDeletedFailure(err){
+  return {
+    type: "USER_DELETED_FAILURE",
+    payload: err
   }
 }
