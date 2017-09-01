@@ -8,9 +8,9 @@ const users = (state = INITIAL_STATE, action) => {
   switch (action.type) {
 
     case "FETCH_USERS":
-      return {...state, usersList: { users: [], error:null, loading: true}}
+      return {...state, usersList: { users: [], error: null, loading: true}}
     case "FETCH_USERS_SUCCESS":
-      return {...state, usersList: { users: action.payload, error:null, loading: false}}
+      return {...state, usersList: { users: action.payload, error: null, loading: false}}
     case "FETCH_USERS_FAILURE":
       error = action.payload || {message: action.payload.message};
       return {...state, usersList: { users: [], error: error, loading: false}}
@@ -24,6 +24,9 @@ const users = (state = INITIAL_STATE, action) => {
       return { ...state, activeUser: {user: null, error:error, loading:false}};
     case "RESET_ACTIVE_USER":
       return { ...state, activeUser: {user: null, error:null, loading: false}};
+    case "RESET_DELETED_USER":
+      return {...state, deletedUser: {user: null, error: null, loading: false}}
+
 
     case "SHOW_USER":
       return action.payload

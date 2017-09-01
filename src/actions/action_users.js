@@ -7,7 +7,6 @@ export const fetchUsers = () =>{
     url: `http://localhost:3000/api/countries`,
     headers: []
   });
-  console.log(request);
   return {
     type: "FETCH_USERS",
     payload: request
@@ -55,5 +54,12 @@ export function fetchUserFailure(err){
 export function resetActiveUser(){
   return {
     type: "RESET_ACTIVE_USER"
+  }
+}
+
+
+export function resetDeletedUser(){
+  return {
+    type: "REST_DELETED_USER"
   }
 }
