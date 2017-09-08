@@ -27,8 +27,43 @@ export const fetchUsersFailure = (err) =>{
   }
 }
 
-// fetch single user
+//create user
+export function newUser(data){
+	const request = axios({
+    method: 'post',
+    url: `http://localhost:3000/api/new-user`,
+    headers: [],
+    data: data
+  });
+  return{
+    type: "NEW_USER",
+    payload: request,
+  }
+}
 
+export function newUserSuccess(response,user){
+  return{
+    type: "NEW_USER_SUCCESS",
+    payload: response,
+    user: user
+  }
+}
+
+export function newUserFailure(err){
+  return{
+    type: "NEW_USER_FAILURE",
+    payload: err
+  }
+}
+
+export function resetNewUser(){
+  return {
+    type: "RESET_NEW_USER"
+  }
+}
+
+
+// fetch single user
 export function fetchUser(id){
   const request = axios.get(`http://localhost:3000/api/get-user/${id}`)
   return {
