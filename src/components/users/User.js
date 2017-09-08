@@ -10,7 +10,7 @@ class User extends Component{
   createUserList(users){
     return users.map((user) =>{
       return(
-        <li key={user.id}> {user.country_name} {user.continent_name}
+        <li key={user.id}> {user.email} {user.fname}
           <Link to={`/users/show/${user.id}`}>Show</Link>
           <button onClick={this.props.deleteUser.bind(this,user.id, this.props.usersList.users)}>Delete</button>
         </li>

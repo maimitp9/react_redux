@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchUsers = () =>{
   const request = axios({
     method: 'get',
-    url: `http://localhost:3000/api/countries`,
+    url: `http://localhost:3000/api/users`,
     headers: []
   });
   return {
@@ -30,7 +30,7 @@ export const fetchUsersFailure = (err) =>{
 // fetch single user
 
 export function fetchUser(id){
-  const request = axios.get(`http://localhost:3000/api/get-country/${id}`)
+  const request = axios.get(`http://localhost:3000/api/get-user/${id}`)
   return {
     type: "FETCH_USER",
     payload: request
@@ -66,7 +66,7 @@ export function resetDeletedUser(){
 export function deleteUser(id){
   const request = axios({
     method: 'delete',
-    url: `http://localhost:3000/api/remove-country/${id}`,
+    url: `http://localhost:3000/api/remove-user/${id}`,
     headers: {
     'Authorization': "pass_auth_tokan"
     }

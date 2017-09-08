@@ -20,8 +20,8 @@ class ShowUser extends Component{
     }
     return(
       <div>
-        <p>First Name: {user.country_name}</p>
-        <p>Last Name: {user.continent_name}</p>
+        <p>First Name: {user.email}</p>
+        <p>Last Name: {user.fname}</p>
       </div>
     )
   }
