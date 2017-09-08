@@ -27,6 +27,7 @@ class User extends Component{
     return(
       <div>
         <h1>User List</h1>
+        <Link to='/users/new-user'>New User</Link>
         <ul>
           {this.createUserList(users)}
         </ul>
