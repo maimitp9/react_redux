@@ -119,8 +119,7 @@ export function userDeletedSuccess(id,deletedUser,usersList){
   usersList.splice(usersList.indexOf(user),1)
   return {
     type: "USER_DELETED_SUCCESS",
-    payload: deletedUser,
-    users: usersList
+    payload: deletedUser
   }
 }
 
