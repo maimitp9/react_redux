@@ -94,7 +94,7 @@ export function resetActiveUser(){
 
 export function resetDeletedUser(){
   return {
-    type: "REST_DELETED_USER"
+    type: "RESET_DELETED_USER"
   }
 }
 

@@ -44,11 +44,6 @@ const users = (state = INITIAL_STATE, action) => {
       return {...state, deletedUser: {user: null, error: error, loading: false}}
     case "RESET_DELETED_USER":
       return {...state, deletedUser: {user: null, error: null, loading: false}}
-
-
-
-    case "SHOW_USER":
-      return action.payload
     default:
       return state;
   }
