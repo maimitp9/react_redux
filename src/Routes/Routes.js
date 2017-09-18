@@ -10,7 +10,7 @@ export default()=>(
   <Switch>
     <Route path="/" exact component={Home} />
     <Route path="/users" exact component={UsersIndex} />
-    <Route path="/users/show/:id" exact component={ShowUser} />
+    <Route path="/users/:id/profile" exact component={ShowUser} />
     <Route path="/users/new-user" exact component={UserContainer} />
     <Route component={NotFound} />
   </Switch>

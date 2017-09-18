@@ -20,8 +20,11 @@ class ShowUser extends Component{
     }
     return(
       <div>
-        <p>First Name: {user.email}</p>
-        <p>Last Name: {user.fname}</p>
+        <p><img src={`http://localhost:3000/uploads/${user.filename}`} alt={user.filename}/></p>
+        <p><strong>Name:</strong> {user.fname + " "+ user.lname}</p>
+        <p><strong>Gender:</strong> {user.gender === "1" ? "Male" : "Female"}</p>
+        <p><strong>Phone:</strong> {user.phone}</p>
+        <p><strong>Address:</strong> {user.address}</p>        
       </div>
     )
   }
