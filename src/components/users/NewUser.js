@@ -1,6 +1,9 @@
 import React,  {Component} from 'react';
 import renderField from './renderField';
+import {withRouter} from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import { newUser, newUserSuccess, newUserFailure } from '../../actions/action_users';
+
 
 const email = value =>
 value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
@@ -8,21 +11,62 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
 : undefined
 
 const required = value => (value ? undefined : 'Required')
-function test(){
-  console.log("hello");
-}
 
 const phoneNumber = value =>
 value && !/^(0|[1-9][0-9]{9})$/i.test(value)
   ? 'Invalid phone number, must be 10 digits'
   : undefined
 
+const initialValues = {
+    company: '59bfa6845fa2ac768ef4a307',
+  };
+
+function submitForm(values, dispatch){
+     return(
+       (dispatch(newUser(values)).payload)
+        .then((response)=>{
+          if(response.error){
+            dispatch(newUserFailure(response.data))
+          }else{
+            dispatch(newUserSuccess(response.data,values))
+          }
+        })
+     )
+}
+
+
 class NewUser extends Component{
+  componentWillUnmount(){
+    this.props.resetMe();
+  }
+
+  componentWillReceiveProps(){
+    if(this.props.newUser.status){
+      this.props.history.push("/users");
+    }
+  }
+
+  handleChange(event){
+    event.preventDefault();
+    const { fields } = this.props;
+    // convert files to an array
+    console.log(fields)
+    const files = [ ...event.target.files ];
+    fields.avatar.onChange(files);
+  }
+
   render(){
+    
     const { handleSubmit, pristine, reset, submitting } = this.props;
+    const {error, loading} = this.props.newUser;
+    if(loading){
+      return <div className="container"><h1>Users</h1><h3>Loading...</h3></div>
+    }else if (error) {
+      return <div className="alert alert-danger">Error: {error.message}</div>
+    }
     return(
       <div className="col-md-6">
-        <form onSubmit={handleSubmit(test)}>
+        <form onSubmit={handleSubmit(submitForm)}>
           <Field
             name="fname"
             type="text"
@@ -44,6 +88,17 @@ class NewUser extends Component{
             placeholder="Enter Email"
             component={renderField}
             validate={email} />
+          {/* <Field
+            name="avatar"
+            label="Profile Picture"
+            type="file"
+            component={renderField}
+          /> */}
+          <Field
+            name="avatar"
+            type="file"
+            component={renderField}
+          />
           <div>
             <label>Sex</label>
             <div>
@@ -73,8 +128,13 @@ class NewUser extends Component{
             label="Phone Nunber"            
             placeholder="Enter your Phone Number" 
             component={renderField}
-            validate ={[required, phoneNumber]}
-          />
+            validate ={[required, phoneNumber]}/>
+          <div>
+            <label>Address</label>
+            <div>
+              <Field name="address" component="textarea" className='form-control' /> <br/>
+            </div>
+          </div>
           <div>
             <button type="submit" disabled={submitting} className="btn btn-primary">Submit</button>
             <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-default">Clear</button>
@@ -86,5 +146,8 @@ class NewUser extends Component{
 }
 
 export default reduxForm({
-  form: 'NewUser' // a unique identifier for this form
-})(NewUser)
+  form: 'NewUser', // a unique identifier for this form
+  initialValues,
+  // fields: ['avatar'],
+  multipartForm : true
+})(withRouter(NewUser))
