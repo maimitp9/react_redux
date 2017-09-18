@@ -1,6 +1,6 @@
 import User from '../../components/users/User';
 import { connect } from 'react-redux';
-import { fetchUsers, fetchUsersSuccess, fetchUsersFailure, deleteUser, userDeletedSuccess, userDeletedFailure } from '../../actions/action_users';
+import { fetchUsers, fetchUsersSuccess, fetchUsersFailure, deleteUser, userDeletedSuccess, userDeletedFailure, resetDeletedUser } from '../../actions/action_users';
 
 function mapStateToProps(state){
   return{
@@ -23,6 +23,10 @@ function matchDispatchToProps(dispatch){
         .then((response) =>{
           !response.error ? dispatch(userDeletedSuccess(id,response.data,usersList)) : dispatch(userDeletedFailure(response.data))
         })
+    },
+    resetDeletedUser: () => {
+      //clean up both activeUser(currrently open) and deletedUser(open and being deleted) states
+      dispatch(resetDeletedUser());
     }
   }
 }

@@ -29,7 +29,6 @@ export const fetchUsersFailure = (err) =>{
 
 //create user
 export function newUser(data){
-  console.log(data.avatar[0])
 	const request = axios({
     method: 'post',
     url: 'http://localhost:3000/user/create',
@@ -42,11 +41,10 @@ export function newUser(data){
   }
 }
 
-export function newUserSuccess(response,user){
+export function newUserSuccess(response){
   return{
     type: "NEW_USER_SUCCESS",
-    payload: response,
-    user: user
+    payload: response
   }
 }
 
@@ -115,7 +113,7 @@ export function deleteUser(id){
 
 export function userDeletedSuccess(id,deletedUser,usersList){
   let user = usersList.find(function(user){
-      return user.id === id
+      return user._id === id
     })
   usersList.splice(usersList.indexOf(user),1)
   return {

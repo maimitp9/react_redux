@@ -7,16 +7,11 @@ class User extends Component{
     this.props.fetchUsers()
   }
 
+  componentWillUnmount() {
+    this.props.resetDeletedUser();
+  }
   createUserList(users){
     return (this.UserDetails(users))
-    // return users.map((user) =>{
-    //   return(
-    //     <li key={user._id}> {user.fname} {user.lname}
-    //       <Link to={`/users/show/${user.id}`}>Show</Link>
-    //       <button onClick={this.props.deleteUser.bind(this,user.id, this.props.usersList.users)}>Delete</button>
-    //     </li>
-    //   )
-    // });
   }
   render(){
     const { users, loading, error } = this.props.usersList;

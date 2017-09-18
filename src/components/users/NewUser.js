@@ -6,36 +6,27 @@ import { newUser, newUserSuccess, newUserFailure } from '../../actions/action_us
 
 
 const email = value =>
-value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-? 'Invalid email address'
-: undefined
+  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+  ? 'Invalid email address'
+  : undefined
 
 const required = value => (value ? undefined : 'Required')
 
 const phoneNumber = value =>
-value && !/^(0|[1-9][0-9]{9})$/i.test(value)
-  ? 'Invalid phone number, must be 10 digits'
-  : undefined
+  value && !/^(0|[1-9][0-9]{9})$/i.test(value)
+    ? 'Invalid phone number, must be 10 digits'
+    : undefined
 
 const initialValues = {
-    company: '59bfa6845fa2ac768ef4a307',
+  company: '59bec876aeac3c1a153ccc61',
   };
-
-function submitForm(values, dispatch){
-     return(
-       (dispatch(newUser(values)).payload)
-        .then((response)=>{
-          if(response.error){
-            dispatch(newUserFailure(response.data))
-          }else{
-            dispatch(newUserSuccess(response.data,values))
-          }
-        })
-     )
-}
 
 
 class NewUser extends Component{
+  constructor(){
+    super();
+    this.state = {avatar: "" }
+  }
   componentWillUnmount(){
     this.props.resetMe();
   }
@@ -47,16 +38,34 @@ class NewUser extends Component{
   }
 
   handleChange(event){
-    event.preventDefault();
-    const { fields } = this.props;
-    // convert files to an array
-    console.log(fields)
-    const files = [ ...event.target.files ];
-    fields.avatar.onChange(files);
+    this.setState({
+      avatar: this.refs.avatar.files
+    })
   }
 
+  submitForm(values, dispatch) {
+    values["avatar"]= this.state.avatar
+    const formData = new FormData();
+    for (const key in values) {
+      if (key === 'avatar') {
+        formData.append(key, values[key][0]);
+      } else {
+        formData.append(key, values[key]);
+        }
+      }
+  return (
+    (dispatch(newUser(formData)).payload)
+      .then((response) => {
+        if (response.error) {
+          dispatch(newUserFailure(response.data))
+        } else {
+          dispatch(newUserSuccess(response.data))
+        }
+      })
+  )
+}
+
   render(){
-    
     const { handleSubmit, pristine, reset, submitting } = this.props;
     const {error, loading} = this.props.newUser;
     if(loading){
@@ -66,7 +75,7 @@ class NewUser extends Component{
     }
     return(
       <div className="col-md-6">
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form encType="multipart/form-data" onSubmit={handleSubmit(this.submitForm.bind(this))}>
           <Field
             name="fname"
             type="text"
@@ -94,10 +103,10 @@ class NewUser extends Component{
             type="file"
             component={renderField}
           /> */}
-          <Field
-            name="avatar"
+          <input
             type="file"
-            component={renderField}
+            ref = "avatar"
+            onChange= {this.handleChange.bind(this)}
           />
           <div>
             <label>Sex</label>
@@ -149,5 +158,4 @@ export default reduxForm({
   form: 'NewUser', // a unique identifier for this form
   initialValues,
   // fields: ['avatar'],
-  multipartForm : true
 })(withRouter(NewUser))

@@ -18,7 +18,7 @@ const users = (state = INITIAL_STATE, action) => {
 		case "NEW_USER":
       return {...state, newUser: {user: null, error: null, loading: true, status: false}}
     case "NEW_USER_SUCCESS":
-      return {...state, newUser:{user: action.user, error: null, loading: false, status: action.payload.success}}
+      return { ...state, newUser: { user: action.payload.user, error: null, loading: false, status: action.payload.success}}
     case "NEW_USER_FAILURE":
       error = action.payload || {message: action.payload.message};
       return {...state, newUser: {user: null, error: error, loading:false, status: false }}
