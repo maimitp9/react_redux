@@ -95,11 +95,24 @@ export function editUser(userData){
     data: userData
   })
   return{
-    type: 'UPDATE_USER',
+    type: 'USER_UPDATE',
     payload: request
   }
 }
 
+export function editUserSuccess(userData){
+  return{
+    type: 'USER_UPDATE_SUCCESS',
+    payload: userData
+  }
+}
+
+export function editUserFailure(err){
+  return{
+    type: 'USER_UPDATE_FAILURE',
+    payload: err
+  }
+}
 
 //
 // ─── DELETE USER ────────────────────────────────────────────────────────────────

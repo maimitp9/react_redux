@@ -1,11 +1,11 @@
 import EditUser from '../../components/users/EditUser';
 import { connect } from 'react-redux';
-import { fetchUser, fetchUserSuccess, fetchUserFailure, editUser } from '../../actions/action_users';
+import { fetchUser, fetchUserSuccess, fetchUserFailure, editUser, editUserSuccess, editUserFailure } from '../../actions/action_users';
 
 function mapStateToProps(state){
   return{
     activeUser: state.users.activeUser,
-    deleteUser: state.users.deleteUser
+    updateUser: state.users.updateUser
   }
 }
 
@@ -27,8 +27,7 @@ function matchDispatchToProps(dispatch){
     editUser: (userData) =>{
       (dispatch(editUser(userData)).payload)
         .then( (response) => {
-          console.log("Hello I think I am inside")
-          console.log(response)
+          !response.error ? dispatch(editUserSuccess(response.data)) : dispatch(editUserFailure(response.data))          
         })
     }
   }

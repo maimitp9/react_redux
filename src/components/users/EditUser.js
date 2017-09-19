@@ -6,7 +6,12 @@ class EditUser extends Component{
 
   componentDidMount(){
     this.props.fetchUser(this.props.match.params.id)
-    
+  }
+
+  componentWillReceiveProps(newProps){
+    if(newProps.updateUser.status){
+      this.props.history.push(`/users/${newProps.updateUser._id}/profile`)
+    }
   }
 
   submitForm(values){    
