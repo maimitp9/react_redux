@@ -114,6 +114,12 @@ export function editUserFailure(err){
   }
 }
 
+export function resetUpdateUser(){
+  return{
+    type: "RESET_UPDATE_USER"
+  }
+}
+
 //
 // ─── DELETE USER ────────────────────────────────────────────────────────────────
 //

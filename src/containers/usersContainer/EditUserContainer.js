@@ -1,6 +1,6 @@
 import EditUser from '../../components/users/EditUser';
 import { connect } from 'react-redux';
-import { fetchUser, fetchUserSuccess, fetchUserFailure, editUser, editUserSuccess, editUserFailure } from '../../actions/action_users';
+import { fetchUser, fetchUserSuccess, fetchUserFailure, editUser, editUserSuccess, editUserFailure, resetUpdateUser } from '../../actions/action_users';
 
 function mapStateToProps(state){
   return{
@@ -29,6 +29,10 @@ function matchDispatchToProps(dispatch){
         .then( (response) => {
           !response.error ? dispatch(editUserSuccess(response.data)) : dispatch(editUserFailure(response.data))          
         })
+    },
+
+    resetMe: () =>{
+      dispatch(resetUpdateUser())
     }
   }
 }

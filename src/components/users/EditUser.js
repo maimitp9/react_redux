@@ -10,8 +10,12 @@ class EditUser extends Component{
 
   componentWillReceiveProps(newProps){
     if(newProps.updateUser.status){
-      this.props.history.push(`/users/${newProps.updateUser._id}/profile`)
+      this.props.history.push(`/users/${newProps.updateUser.user._id}/profile`)
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetMe();  
   }
 
   submitForm(values){    

@@ -67,7 +67,9 @@ const users = (state = INITIAL_STATE, action) => {
       return { ...state, updateUser: {user: action.payload.user, error: null, loading: false, status: action.payload.success}}
     case "USER_UPDATE_FAILURE":
       error = action.payload || {message: action.payload.message};//2nd one is network or server down errors
-      return {...state, updateUser: {user: null, error: error, loading: false}}
+      return { ...state, updateUser: { user: null, error: error, loading: false, status: false}}
+    case "RESET_UPDATE_USER":
+      return { ...state, updateUser: { user: null, error: null, loading: false, status: false }}
 
     default:
       return state;
