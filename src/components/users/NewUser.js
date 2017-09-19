@@ -2,7 +2,6 @@ import React,  {Component} from 'react';
 import renderField from './renderField';
 import {withRouter} from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { newUser, newUserSuccess, newUserFailure } from '../../actions/action_users';
 
 
 const email = value =>
@@ -18,7 +17,7 @@ const phoneNumber = value =>
     : undefined
 
 const initialValues = {
-  company: '59bec876aeac3c1a153ccc61',
+  company: '59bfa6845fa2ac768ef4a307',
   };
 
 
@@ -31,8 +30,8 @@ class NewUser extends Component{
     this.props.resetMe();
   }
 
-  componentWillReceiveProps(){
-    if(this.props.newUser.status){
+  componentWillReceiveProps(newProps){
+    if(newProps.activeUser.status){
       this.props.history.push("/users");
     }
   }
@@ -51,23 +50,14 @@ class NewUser extends Component{
         formData.append(key, values[key][0]);
       } else {
         formData.append(key, values[key]);
-        }
       }
-  return (
-    (dispatch(newUser(formData)).payload)
-      .then((response) => {
-        if (response.error) {
-          dispatch(newUserFailure(response.data))
-        } else {
-          dispatch(newUserSuccess(response.data))
-        }
-      })
-  )
-}
+    }
+    this.props.newUser(formData)
+  }
 
   render(){
     const { handleSubmit, pristine, reset, submitting } = this.props;
-    const {error, loading} = this.props.newUser;
+    const {error, loading} = this.props.activeUser;
     if(loading){
       return <div className="container"><h1>Users</h1><h3>Loading...</h3></div>
     }else if (error) {
@@ -97,12 +87,6 @@ class NewUser extends Component{
             placeholder="Enter Email"
             component={renderField}
             validate={email} />
-          {/* <Field
-            name="avatar"
-            label="Profile Picture"
-            type="file"
-            component={renderField}
-          /> */}
           <input
             type="file"
             ref = "avatar"

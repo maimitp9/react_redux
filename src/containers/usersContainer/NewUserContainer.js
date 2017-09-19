@@ -1,14 +1,24 @@
 import NewUser from '../../components/users/NewUser';
 import { connect } from 'react-redux';
-import { resetNewUser } from '../../actions/action_users';
+import { newUser,newUserSuccess,newUserFailure,resetNewUser } from '../../actions/action_users';
 
 function mapStateToProps(state) {
   return{
-		newUser: state.users.newUser
+		activeUser: state.users.newUser
 	}
 }
 function matchDispatchToProps(dispatch) {
   return{
+    newUser: (formData) =>{
+      (dispatch(newUser(formData)).payload)
+      .then((response) => {
+        if (response.error) {
+          dispatch(newUserFailure(response.data))
+        } else {
+          dispatch(newUserSuccess(response.data))
+        }
+      })
+    },
     resetMe: () => {
       //clean up both activeUser(currrently open) and deletedUser(open and being deleted) states
       dispatch(resetNewUser());
