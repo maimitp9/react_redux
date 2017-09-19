@@ -10,9 +10,6 @@ class User extends Component{
   componentWillUnmount() {
     this.props.resetDeletedUser();
   }
-  createUserList(users){
-    return (this.UserDetails(users))
-  }
   render(){
     const { users, loading, error } = this.props.usersList;
     if(loading) {
@@ -20,6 +17,7 @@ class User extends Component{
     } else if(error) {
       return <div className="alert alert-danger">Error: {error.message}</div>
     }
+    console.log(users)
     return(
       <div>
         <h1>User List</h1>
@@ -27,6 +25,9 @@ class User extends Component{
         { this.createUserList(users) }
       </div>
     )
+  }
+  createUserList(users){
+    return (this.UserDetails(users))
   }
 
   UserDetails(users){
