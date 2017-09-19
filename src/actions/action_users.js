@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-// fetch users
+//
+// ─── FETCH USERS ────────────────────────────────────────────────────────────────
+//
 export const fetchUsers = () =>{
   const request = axios({
     method: 'get',
@@ -27,12 +29,14 @@ export const fetchUsersFailure = (err) =>{
   }
 }
 
-//create user
-export function newUser(data){
+//
+// ─── CREATE USER ────────────────────────────────────────────────────────────────
+//
+export function createUser(data){
 	const request = axios({
     method: 'post',
     url: 'http://localhost:3000/user/create',
-    headers: [{'Content-Type':'multipart/form-data'}],
+    headers: [],
     data: data
   });
   return{
@@ -41,28 +45,23 @@ export function newUser(data){
   }
 }
 
-export function newUserSuccess(response){
+export function createUserSuccess(response){
   return{
     type: "NEW_USER_SUCCESS",
     payload: response
   }
 }
 
-export function newUserFailure(err){
+export function createUserFailure(err){
   return{
     type: "NEW_USER_FAILURE",
     payload: err
   }
 }
 
-export function resetNewUser(){
-  return {
-    type: "RESET_NEW_USER"
-  }
-}
-
-
-// fetch single user
+//
+// ─── FETCH SINGLE USER ──────────────────────────────────────────────────────────
+//
 export function fetchUser(id){
   const request = axios.get(`http://localhost:3000/user/${id}/profile`)
   return {
@@ -85,18 +84,26 @@ export function fetchUserFailure(err){
   }
 }
 
-export function resetActiveUser(){
-  return {
-    type: "RESET_ACTIVE_USER"
+//
+// ─── UPDATE USER ────────────────────────────────────────────────────────────────
+//
+export function editUser(userData){
+  const request = axios({
+    method: 'post',
+    url: `http://localhost:3000/user/${userData.get('_id')}/update`,
+    header: [],
+    data: userData
+  })
+  return{
+    type: 'UPDATE_USER',
+    payload: request
   }
 }
 
-export function resetDeletedUser(){
-  return {
-    type: "RESET_DELETED_USER"
-  }
-}
 
+//
+// ─── DELETE USER ────────────────────────────────────────────────────────────────
+//
 export function deleteUser(id){
   const request = axios({
     method: 'delete',
@@ -128,3 +135,31 @@ export function userDeletedFailure(err){
     payload: err
   }
 }
+
+//
+// ─── RESET USER ─────────────────────────────────────────────────────────────────
+//
+export function resetNewUser(){
+  return {
+    type: "RESET_NEW_USER"
+  }
+}
+
+//
+// ─── RESET ACTIVEUSER ───────────────────────────────────────────────────────────
+//
+export function resetActiveUser(){
+  return {
+    type: "RESET_ACTIVE_USER"
+  }
+}
+
+//
+// ─── RESET DELETED USER ───────────────────────────────────────────────────────────
+//
+export function resetDeletedUser(){
+  return {
+    type: "RESET_DELETED_USER"
+  }
+}
+

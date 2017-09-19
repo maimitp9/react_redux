@@ -1,21 +1,22 @@
 import NewUser from '../../components/users/NewUser';
 import { connect } from 'react-redux';
-import { newUser,newUserSuccess,newUserFailure,resetNewUser } from '../../actions/action_users';
+import { createUser,createUserSuccess,createUserFailure,resetNewUser } from '../../actions/action_users';
 
 function mapStateToProps(state) {
   return{
 		activeUser: state.users.newUser
 	}
 }
+
 function matchDispatchToProps(dispatch) {
   return{
-    newUser: (formData) =>{
-      (dispatch(newUser(formData)).payload)
+    createUser: (formData) =>{
+      (dispatch(createUser(formData)).payload)
       .then((response) => {
         if (response.error) {
-          dispatch(newUserFailure(response.data))
+          dispatch(createUserFailure(response.data))
         } else {
-          dispatch(newUserSuccess(response.data))
+          dispatch(createUserSuccess(response.data))
         }
       })
     },

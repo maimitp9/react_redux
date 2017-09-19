@@ -1,12 +1,16 @@
 const INITIAL_STATE = { usersList: {users: [], error:null, loading: false},
 							newUser:{user:null, error: null, loading: false, status: false},
 							activeUser:{user:null, error:null, loading: false},
-							deletedUser: {user: null, error:null, loading: false},
+              deletedUser: {user: null, error:null, loading: false},
+              updateUser: {user:null, error: null, loading: false, status: false}
 						};
 const users = (state = INITIAL_STATE, action) => {
   let error;
   switch (action.type) {
 
+    //
+    // ─── ALL USERS ───────────────────────────────────────────────────
+    //
     case "FETCH_USERS":
       return {...state, usersList: { users: [], error: null, loading: true}}
     case "FETCH_USERS_SUCCESS":
@@ -15,6 +19,9 @@ const users = (state = INITIAL_STATE, action) => {
       error = action.payload || {message: action.payload.message};
       return {...state, usersList: { users: [], error: error, loading: false}}
 
+    //
+    // ─── NEW USER ────────────────────────────────────────────────────
+    //
 		case "NEW_USER":
       return {...state, newUser: {user: null, error: null, loading: true, status: false}}
     case "NEW_USER_SUCCESS":
@@ -25,6 +32,9 @@ const users = (state = INITIAL_STATE, action) => {
     case "RESET_NEW_USER":
       return {...state, newUser:{user:null, error: null, loading: false, status: false}}
 
+    //
+    // ─── FETCH USER ──────────────────────────────────────────────────
+    //
     case "FETCH_USER":
       return { ...state, activeUser:{...state.activeUser, error: null, loading: true}};
     case "FETCH_USER_SUCCESS":
@@ -35,6 +45,9 @@ const users = (state = INITIAL_STATE, action) => {
     case "RESET_ACTIVE_USER":
       return { ...state, activeUser: {user: null, error:null, loading: false}};
 
+    //
+    // ─── DELETE USER ─────────────────────────────────────────────────
+    //
     case "DELETE_USER":
       return {...state, deletedUser: {...state.deletedUser, loading: true}}
     case "USER_DELETED_SUCCESS":
@@ -44,6 +57,13 @@ const users = (state = INITIAL_STATE, action) => {
       return {...state, deletedUser: {user: null, error: error, loading: false}}
     case "RESET_DELETED_USER":
       return {...state, deletedUser: {user: null, error: null, loading: false}}
+    
+    //
+    // ─── UPDATE USER ─────────────────────────────────────────────────
+    //
+    case 'UPDATE_USER':
+      return {...state, updateUser: {...state.updateUser, error: null, loading: false, status: false }}
+
     default:
       return state;
   }

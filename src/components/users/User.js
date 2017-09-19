@@ -62,6 +62,7 @@ class User extends Component{
         <td>{user.gender === "1" ? "Male" : "Female"}</td>
         <td><img src={`http://localhost:3000/uploads/${user.filename}`} alt={user.filename}/></td>
         <td><Link to={`/users/${user._id}/profile`} className= "btn btn-success">Show</Link>
+            <Link to={`/users/${user._id}/edit`} className= "btn btn-default">Edit</Link>        
             <button onClick={this.props.deleteUser.bind(this,user._id, this.props.usersList.users)} className="btn btn-danger">Delete</button>
         </td>
       </tr>
