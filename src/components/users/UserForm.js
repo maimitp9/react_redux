@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
-import renderField from './renderField';
+import renderField from '../../components/renderField';
 
 class UserForm extends Component{
   constructor(props){
     super(props);
-    let avatar = this.props.initialValues? `http://localhost:3000/uploads/${this.props.initialValues.filename}` : ' ';
+    let avatar = this.props.initialValues? `http://localhost:3000/uploads/${this.props.initialValues.filename}` : "";
     this.state = { imgSrc: avatar }
+  }
+
+  componentDidMount() {
+    this.props.initialize({ company: this.props.company_id });
   }
 
   imagePreview(e){
@@ -21,6 +25,7 @@ class UserForm extends Component{
   }
   render(){
     const { handleSubmit, pristine, reset, submitting } = this.props;
+    const imgSrc = this.state.imgSrc
     return(
       <div className="col-md-6">
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -45,8 +50,9 @@ class UserForm extends Component{
           placeholder="Enter Email"
           component={renderField}
           validate={email} />
-          <Field component={UploadFile} name='avatar' onChange={this.imagePreview.bind(this)} />
-          <img src={this.state.imgSrc} alt="" /> 
+        <Field component={UploadFile} name='avatar' onChange={this.imagePreview.bind(this)} />
+        { imgSrc && <img src={this.state.imgSrc} alt="" />  }
+        
         <div>
           <label>Sex</label>
           <div>
@@ -117,12 +123,6 @@ value && !/^(0|[1-9][0-9]{9})$/i.test(value)
 
 //validation end
 
-// set initialValue if pass as hidden field
-const initialValues = {
-  company: '59bec876aeac3c1a153ccc61',
-};
-
 export default reduxForm({
   form: 'UserForm', // a unique identifier for this form
-  initialValues,
 })(UserForm)

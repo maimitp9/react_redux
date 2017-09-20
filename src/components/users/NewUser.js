@@ -36,7 +36,7 @@ class NewUser extends Component{
     }
 
     return(
-      <UserForm onSubmit={this.submitForm.bind(this)} />
+      <UserForm onSubmit={this.submitForm.bind(this)} company_id = {this.props.company_id} />
     )
   }
 }

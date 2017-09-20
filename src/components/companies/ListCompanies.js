@@ -14,16 +14,18 @@ class ListCompanies extends Component{
     }else if (error) {
       return <div className="alert alert-danger">Error: {error.message}</div>
     }
+    
     return(
       <div>
-        <h1>Company List</h1>
+        <h1>Company List
+          <Link to="/company/new" className="btn btn-primary pull-right">New Company</Link>
+        </h1>
         {this.createCompanyList(companies)}
       </div>
     );
   }
 
   createCompanyList(companies) {
-    console.log(companies)
     return (this.companyDetails(companies))
   }
 
@@ -55,7 +57,9 @@ class ListCompanies extends Component{
         <th scope="row">{index}</th>
         <td>{company.name}</td>
         <td>{company.numberOfEmployees}</td>
-        <td><Link to="#" className="btn btn-success">Show</Link>
+        <td>
+          <Link to={`/users/${company._id}/new-user`} className="btn btn-primary">New User</Link>
+          <Link to={`/company/${company._id}/profile`} className="btn btn-success">Show</Link>
           <Link to="#" className="btn btn-default">Edit</Link>
           <button  className="btn btn-danger">Delete</button>
         </td>

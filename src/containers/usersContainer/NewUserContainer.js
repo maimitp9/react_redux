@@ -2,9 +2,10 @@ import NewUser from '../../components/users/NewUser';
 import { connect } from 'react-redux';
 import { createUser,createUserSuccess,createUserFailure,resetNewUser } from '../../actions/action_users';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, newProps) {
   return{
-		activeUser: state.users.newUser
+    activeUser: state.users.newUser,
+    company_id: newProps.match.params.company_id
 	}
 }
 

@@ -7,7 +7,9 @@ import ShowUser from '../pages/ShowUser'; // show user page
 import NewUserContainer from '../containers/usersContainer/NewUserContainer'; // create new user
 import EditUserContainer from '../containers/usersContainer/EditUserContainer'; // edit user
 
-import ListCompaniesContainer from "../containers/companiesContainer/ListCompaniesContainer";
+import ListCompaniesContainer from "../containers/companiesContainer/ListCompaniesContainer"; //list companies
+import ShowCompanyContainer from "../containers/companiesContainer/ShowCompanyContainer"; //company peofile
+import NewCompanyContainer from '../containers/companiesContainer/NewCompanyContainer';
 
 export default()=>(
   <Switch>
@@ -15,11 +17,13 @@ export default()=>(
     <Route path="/" exact component={Home} />
     <Route path="/users" exact component={UsersIndex} />
     <Route path="/users/:id/profile" exact component={ShowUser} />
-    <Route path="/users/new-user" exact component={NewUserContainer} />
+    <Route path="/users/:company_id/new-user" exact component={NewUserContainer} />
     <Route path="/users/:id/edit" exact component={EditUserContainer} />
 
     {/* Company Routes */}
     <Route path="/companies" exact component={ListCompaniesContainer} />
+    <Route path="/company/new" exact component={NewCompanyContainer}/>
+    <Route path="/company/:id/profile" exact component={ShowCompanyContainer} />
     
     {/*  always at the end */}
     <Route component={NotFound} />

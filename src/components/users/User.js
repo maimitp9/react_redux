@@ -17,11 +17,9 @@ class User extends Component{
     } else if(error) {
       return <div className="alert alert-danger">Error: {error.message}</div>
     }
-    console.log(users)
     return(
       <div>
         <h1>User List</h1>
-        <Link to='/users/new-user'>New User</Link>
         { this.createUserList(users) }
       </div>
     )
