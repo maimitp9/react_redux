@@ -26,7 +26,7 @@ class CompanyForm extends Component{
               component={renderField}
               validate={[required, number]} />
             <div>
-              <button type="submit" disabled={submitting} className="btn btn-primary">Submit</button>
+              <button type="submit" disabled={submitting} className="btn btn-success">Submit</button>
               <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-default">Clear</button>
             </div>
             </form>

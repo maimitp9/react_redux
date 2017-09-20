@@ -39,8 +39,13 @@ class EditUser extends Component{
       }
 
       return( 
-        <div>
-         <UserForm onSubmit={this.submitForm.bind(this)} initialValues={user} />
+        <div className="col-md-6">
+          <div className="panel panel-primary">
+            <div className="panel-heading">Edit Employee</div>
+            <div className="panel-body">
+              <UserForm onSubmit={this.submitForm.bind(this)} initialValues={user} />
+            </div>
+          </div>
         </div>
       )
   }

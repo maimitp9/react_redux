@@ -11,7 +11,7 @@ class NewUser extends Component{
 
   componentWillReceiveProps(newProps){
     if(newProps.activeUser.status){
-      this.props.history.push("/users");
+      this.props.history.push(`/company/${this.props.company_id}/profile`);
     }
   }
 
@@ -36,7 +36,14 @@ class NewUser extends Component{
     }
 
     return(
-      <UserForm onSubmit={this.submitForm.bind(this)} company_id = {this.props.company_id} />
+      <div className="col-md-6">
+        <div className="panel panel-primary">
+          <div className="panel-heading">New Employee</div>
+          <div className="panel-body">
+            <UserForm onSubmit={this.submitForm.bind(this)} company_id = {this.props.company_id} />
+          </div>
+        </div>
+      </div>
     )
   }
 }

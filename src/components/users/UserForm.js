@@ -10,7 +10,9 @@ class UserForm extends Component{
   }
 
   componentDidMount() {
-    this.props.initialize({ company: this.props.company_id });
+    if (this.props.company_id){
+      this.props.initialize({ company: this.props.company_id });
+    }
   }
 
   imagePreview(e){
@@ -27,7 +29,6 @@ class UserForm extends Component{
     const { handleSubmit, pristine, reset, submitting } = this.props;
     const imgSrc = this.state.imgSrc
     return(
-      <div className="col-md-6">
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <Field
           name="fname"
@@ -90,11 +91,10 @@ class UserForm extends Component{
           </div>
         </div>
         <div>
-          <button type="submit" disabled={submitting} className="btn btn-primary">Submit</button>
+          <button type="submit" disabled={submitting} className="btn btn-success">Submit</button>
           <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-default">Clear</button>
         </div>
       </form>
-    </div>
     );
   }
 }

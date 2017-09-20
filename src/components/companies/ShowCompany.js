@@ -18,24 +18,25 @@ export default class ShowCompany extends Component{
     }
     return(
       <div>
-        <CompanyDetails company = {company}/>
+        <CompanyDetails company={company} deleteUser={this.props.deleteUser.bind(this)} />
       </div>
     )
   }
 }
 
-function CompanyDetails(companyList){
+function CompanyDetails(props){
+  const company = props.company
   return(
     <div>
       <div className="panel panel-primary">
         <div className="panel-heading">Company Details</div>
         <div className="panel-body">
-          <p><strong>Company Name: </strong>{ companyList.company.name }</p>
-          <p><strong>Total Employees: </strong>{ companyList.company.numberOfEmployees }</p>
+          <p><strong>Company Name: </strong>{ company.name }</p>
+          <p><strong>Total Employees: </strong>{ company.numberOfEmployees }</p>
         </div>
         <div className="panel-body">
           <div><strong>Copmany Employees</strong><hr/></div>
-          <EmployeesDetails employeeList={companyList.company.users} />    
+          <EmployeesDetails employeeList={company.users} deleteUser={props.deleteUser} />    
         </div>
       </div>
     </div>
@@ -59,7 +60,7 @@ function EmployeesDetails(props){
     <tbody>
       {
         employeeList.map( (employee, index) => {
-         return <EmployeeRow employee={employee} index={++index} key={index} />
+         return <EmployeeRow employee={employee} index={++index} key={index} employeeList={employeeList} deleteUser = {props.deleteUser} />
         })
       }
     </tbody>
@@ -79,7 +80,7 @@ function EmployeeRow(props){
       <td><img src={`http://localhost:3000/uploads/${employee.filename}`} alt={employee.filename}/></td>
       <td><Link to={`/users/${employee._id}/profile`} className= "btn btn-success">Show</Link>
           <Link to={`/users/${employee._id}/edit`} className= "btn btn-default">Edit</Link>        
-          {/* <button onClick={this.props.deleteUser.bind(this,employee._id, this.props.usersList.users)} className="btn btn-danger">Delete</button> */}
+          <button onClick={props.deleteUser.bind(this, employee._id, props.employeeList)} className="btn btn-danger">Delete</button>
       </td>
     </tr>
   )

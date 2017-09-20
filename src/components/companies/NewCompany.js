@@ -17,7 +17,7 @@ class NewCompany extends Component{
     this.props.newCompany(values)
   }
   render(){
-    const { company, error, loading } = this.props.newCompanyData
+    const { error, loading } = this.props.newCompanyData
     if(loading){
       return <div className="container"><h1>Company</h1><h3>Loading...</h3></div>
     }else if (error) {
