@@ -9,7 +9,8 @@ import EditUserContainer from '../containers/usersContainer/EditUserContainer'; 
 
 import ListCompaniesContainer from "../containers/companiesContainer/ListCompaniesContainer"; //list companies
 import ShowCompanyContainer from "../containers/companiesContainer/ShowCompanyContainer"; //company peofile
-import NewCompanyContainer from '../containers/companiesContainer/NewCompanyContainer';
+import NewCompanyContainer from '../containers/companiesContainer/NewCompanyContainer'; // new company
+import EditCompanyContainer from '../containers/companiesContainer/EditCompanyContainer'; // edit company
 
 export default()=>(
   <Switch>
@@ -24,6 +25,7 @@ export default()=>(
     <Route path="/companies" exact component={ListCompaniesContainer} />
     <Route path="/company/new" exact component={NewCompanyContainer}/>
     <Route path="/company/:id/profile" exact component={ShowCompanyContainer} />
+    <Route path="/company/:id/edit" exact component={EditCompanyContainer} />
     
     {/*  always at the end */}
     <Route component={NotFound} />

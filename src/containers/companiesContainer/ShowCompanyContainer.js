@@ -1,6 +1,6 @@
 import ShowCompany from '../../components/companies/ShowCompany';
 import { connect } from 'react-redux';
-import { fetchCompany, fetchCompanySuccess, fetchCompanyfailure } from '../../actions/action_companies';
+import { fetchCompany, fetchCompanySuccess, fetchCompanyFailure } from '../../actions/action_companies';
 import { deleteUser, userDeletedSuccess, userDeletedFailure } from '../../actions/action_users';
 
 
@@ -19,7 +19,7 @@ const mapDispathToProps = (dispatch) =>{
           (!response.error && response.status === 200) ? 
             dispatch(fetchCompanySuccess(response.data)) 
             : 
-            dispatch(fetchCompanyfailure(response.data))
+            dispatch(fetchCompanyFailure(response.data))
         })
     },
     deleteUser: (id, usersList) => {

@@ -25,8 +25,13 @@ class NewCompany extends Component{
     }
 
     return(
-      <div>
-        <CompanyForm onSubmit={this.handleSubmit} />
+      <div className="col-md-6">
+        <div className="panel panel-primary">
+          <div className="panel-heading">New Company</div>
+          <div className="panel-body">
+            <CompanyForm onSubmit={this.handleSubmit} />   
+          </div>
+        </div>
       </div>
     )
   }

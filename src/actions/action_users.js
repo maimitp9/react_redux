@@ -6,7 +6,7 @@ import axios from 'axios';
 export const fetchUsers = () =>{
   const request = axios({
     method: 'get',
-    url: `http://localhost:3000/users`,
+    url: `/users`,
     headers: []
   });
   return {
@@ -35,7 +35,7 @@ export const fetchUsersFailure = (err) =>{
 export function createUser(data){
 	const request = axios({
     method: 'post',
-    url: 'http://localhost:3000/user/create',
+    url: '/user/create',
     headers: [],
     data: data
   });
@@ -63,7 +63,7 @@ export function createUserFailure(err){
 // ─── FETCH SINGLE USER ──────────────────────────────────────────────────────────
 //
 export function fetchUser(id){
-  const request = axios.get(`http://localhost:3000/user/${id}/profile`)
+  const request = axios.get(`/user/${id}/profile`)
   return {
     type: "FETCH_USER",
     payload: request
@@ -90,7 +90,7 @@ export function fetchUserFailure(err){
 export function editUser(userData){
   const request = axios({
     method: 'post',
-    url: `http://localhost:3000/user/${userData.get('_id')}/update`,
+    url: `/user/${userData.get('_id')}/update`,
     header: [],
     data: userData
   })
@@ -126,7 +126,7 @@ export function resetUpdateUser(){
 export function deleteUser(id){
   const request = axios({
     method: 'delete',
-    url: `http://localhost:3000/user/${id}/delete`,
+    url: `/user/${id}/delete`,
     headers: {
     'Authorization': "pass_auth_tokan"
     }

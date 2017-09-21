@@ -6,7 +6,7 @@ import axios from 'axios';
 export const getCompanies = ()  =>{
   let request = axios({
     method: 'get',
-    url: 'http://localhost:3000/companies',
+    url: '/companies',
     headers: []
   });
 
@@ -35,10 +35,10 @@ export const getCompaniesFailure = (err) =>{
 // ─── FETCH COMPANY BASED ON ID ──────────────────────────────────────────────────
 //
 
-export const fetchCompany= (id) =>{
+export const fetchCompany = (id) =>{
   let request = axios({
     method: 'get',
-    url: `http://localhost:3000/company/${id}`,
+    url: `/company/${id}`,
     headers: []
   })
   return{
@@ -54,7 +54,7 @@ export const fetchCompanySuccess = (companyData) =>{
   }
 }
 
-export const fetchCompanyfailure = (err) => {
+export const fetchCompanyFailure = (err) => {
   return{
     type: 'FETCH_COMPANY_FAILURE',
     payload: err
@@ -69,7 +69,7 @@ export const fetchCompanyfailure = (err) => {
 export const newCompany = (companyData) =>{
   let request = axios({
     method: 'post',
-    url: `http://localhost:3000/company/create`,
+    url: `/company/create`,
     headers: [],
     data: companyData
   })
@@ -89,6 +89,76 @@ export const newCompanySuccess = (companyData) =>{
 export const newCompanyFaulire = (err) =>{
   return{
     type: "NEW_COMPANY_FAILURE",
+    payload: err
+  }
+}
+
+//
+// ─── UPDATE COMPANY ─────────────────────────────────────────────────────────────
+//
+export const editCompany = (companyData) =>{
+  let request = axios({
+    method: 'post',
+    url: `/company/${companyData._id}/update`,
+    headers: [],
+    data: companyData
+  })
+  return{
+    type: "EDIT_COMPANY",
+    payload: request
+  }
+}
+
+export const editCompanySuccess = (companyData) =>{
+  return{
+    type: 'EDIT_COMPANY_SUCCESS',
+    payload: companyData
+  }
+}
+
+export const editCompanyFailure = (err) => {
+  return{
+    type: 'EDIT_COMPANY_FAILURE',
+    payload: err
+  }
+}
+
+export const resetEditCompany = () =>{
+  return{
+    type: "RESET_EDIT_COMPANY"
+  }
+}
+
+//
+// ─── DELETE COMPANY ─────────────────────────────────────────────────────────────
+//
+export const deleteCompany = (id) => {
+  let request = axios({
+    method: 'delete',
+    url: `/company/${id}`,
+    headers: []
+  })
+  return{
+    type: 'DELETE_COMPANY',
+    payload: request
+  }
+}
+
+export const deleteCompanySuccess = (id, deletedCompany, companiesList) => {
+  let company = companiesList.find(function(company){
+    return company._id === id
+  })
+  console.log(company)
+  companiesList.splice(companiesList.indexOf(company),1)
+  return{
+    type: 'DELETE_COMPANY_SUCCESS',
+    payload: deleteCompany
+  }
+}
+
+export const deleteCompanyFailure = (err) => {
+  return{
+    type: 'DELETE_COMPANY_FAILURE',
     payload: err
   }
 }
