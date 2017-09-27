@@ -181,4 +181,3 @@ export function resetDeletedUser(){
     type: "RESET_DELETED_USER"
   }
 }
-

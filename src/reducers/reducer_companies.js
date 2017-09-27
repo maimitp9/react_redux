@@ -2,7 +2,8 @@ const INITIAL_STATE = {
   companiesList: { companies: [], error: null, loading: false},
   activeCompany: { company: null, error: null, loading: false},
   newCompany: { company: null, error: null, loading: false},
-  editCompany: { company: null, error: null, loading: false}
+  editCompany: { company: null, error: null, loading: false},
+  feedbackToggle: { status: null }
 }
 
 const companies = ( state = INITIAL_STATE, action) => {
@@ -66,7 +67,8 @@ const companies = ( state = INITIAL_STATE, action) => {
     case 'DELETE_COMPANY_FAILURE':
       error = action.payload || { message:  action.payload.message }
       return {...state, deleteCompany: {company: null, error: error, loading: false}}
-
+    case 'FEEDBACK_TOGGEL':
+      return {...state, feedbackToggle: { status: action.payload.status, selected: action.payload.selected } }
 
     default:
       return state;
