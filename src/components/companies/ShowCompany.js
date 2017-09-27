@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import NewFeedbackContainer from '../../containers/feedbacksContainer/NewFeedbackContainer';
 
 export default class ShowCompany extends Component{
   componentDidMount(){
@@ -13,7 +14,7 @@ export default class ShowCompany extends Component{
 
   render(){
     const { company, error, loading } = this.props.activeCompany;
-    const { status, selected } = this.props.toogle
+    const feedbackToggle = this.props.toogle
     if(loading){
       return <div className="container"><h1>Company</h1><h3>Loading...</h3></div>
     }else if(error) {
@@ -23,7 +24,7 @@ export default class ShowCompany extends Component{
     }
     return(
       <div>
-        <CompanyDetails company={company} deleteUser={this.props.deleteUser.bind(this)} handleFeedback={this.handleFeedback} status={status} selected={selected} />
+        <CompanyDetails company={company} deleteUser={this.props.deleteUser.bind(this)} handleFeedback={this.handleFeedback} feedbackToggle={feedbackToggle}  />
       </div>
     )
   }
@@ -41,7 +42,7 @@ function CompanyDetails(props){
         </div>
         <div className="panel-body">
           <div><strong>Copmany Employees</strong><hr/></div>
-          <EmployeesDetails employeeList={company.users} deleteUser={props.deleteUser} handleFeedback={props.handleFeedback} status= {props.status} selected={props.selected} />    
+          <EmployeesDetails employeeList={company.users} deleteUser={props.deleteUser} handleFeedback={props.handleFeedback} feedbackToggle={props.feedbackToggle} />    
         </div>
       </div>
     </div>
@@ -64,7 +65,7 @@ function EmployeesDetails(props){
     </thead>
       {
         employeeList.map( (employee, index) => {
-         return <EmployeeRow employee={employee} index={++index} key={index} employeeList={employeeList} deleteUser = {props.deleteUser} handleFeedback={props.handleFeedback} status= {props.status} selected={props.selected} />
+          return <EmployeeRow employee={employee} index={++index} key={index} employeeList={employeeList} deleteUser={props.deleteUser} handleFeedback={props.handleFeedback} feedbackToggle={props.feedbackToggle}/>
         })
       }
   </table>
@@ -74,6 +75,7 @@ function EmployeesDetails(props){
 function EmployeeRow(props){
   const employee = props.employee;
   const index = props.index;
+  const { status, selected } = props.feedbackToggle;
   return(
     <tbody>
     <tr>
@@ -83,27 +85,13 @@ function EmployeeRow(props){
       <td>{employee.gender === "1" ? "Male" : "Female"}</td>
       <td><img src={`http://localhost:3000/uploads/${employee.filename}`} alt={employee.filename}/></td>
       <td>
-          <button onClick={props.handleFeedback.bind(this, !props.status, index)} className= {`btn btn-primary` } >Feedback</button>
+          <button onClick={props.handleFeedback.bind(this, !status, index)} className= {`btn btn-primary` } >Feedback</button>
           <Link to={`/users/${employee._id}/profile`} className= "btn btn-success">Show</Link>
           <Link to={`/users/${employee._id}/edit`} className= "btn btn-default">Edit</Link>        
           <button onClick={props.deleteUser.bind(this, employee._id, props.employeeList)} className="btn btn-danger">Delete</button>
       </td>
     </tr>
-      { (props.selected === index && props.status) && <FeedbackModal /> }   
+    {(selected === index && status) && <NewFeedbackContainer employee_id={employee._id} company_id={employee.company}  /> }   
   </tbody>
-  )
-}
-
-function FeedbackModal(){
-  return(
-    <tr>
-      <td colSpan={6}>
-        <div className="panel panel-info">
-          <div className="panel-heading">
-            Feedback for 
-          </div>
-        </div>
-      </td>
-    </tr>
   )
 }
