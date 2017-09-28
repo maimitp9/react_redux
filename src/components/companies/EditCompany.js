@@ -26,7 +26,6 @@ class EditCompany extends Component{
   }
 
   render(){
-    console.log("rendering")
     const { company, error, loading } = this.props.activeCompany
 
     if(loading){

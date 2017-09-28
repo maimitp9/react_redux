@@ -148,7 +148,6 @@ export const deleteCompanySuccess = (id, deletedCompany, companiesList) => {
   let company = companiesList.find(function(company){
     return company._id === id
   })
-  console.log(company)
   companiesList.splice(companiesList.indexOf(company),1)
   return{
     type: 'DELETE_COMPANY_SUCCESS',

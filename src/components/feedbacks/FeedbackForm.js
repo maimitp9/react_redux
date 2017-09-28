@@ -1,6 +1,7 @@
 import React, { Component }  from 'react';
-import { Field, reduxForm} from 'redux-form';
+import { reset, Field, reduxForm} from 'redux-form';
 // import renderField from '../../components/renderField';
+import ListFeedback from './ListFeedback'
 
 class FeedbackForm extends Component{
 
@@ -11,7 +12,11 @@ class FeedbackForm extends Component{
   }
 
   render(){
+
     const { handleSubmit, pristine, reset, submitting} = this.props;
+    const feedback_list = this.props.feedback_list;
+    const company = this.props.company;
+
     return(
       <tr>
         <td colSpan={6}>
@@ -28,12 +33,18 @@ class FeedbackForm extends Component{
               </form>
             </div>
           </div>
+          <ListFeedback company={company} feedback_list={feedback_list} />
         </td>
       </tr>
     )
   }
 }
 
+const afterSubmit = (result, dispatch) =>
+dispatch(reset('FeedbackForm'));
+
+
 export default reduxForm({
-  form: 'FeedbackForm'
+  form: 'FeedbackForm',
+  onSubmitSuccess: afterSubmit
 })(FeedbackForm);
