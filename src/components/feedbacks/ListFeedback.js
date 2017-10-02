@@ -35,7 +35,7 @@ function FeedbackDetails(props){
           <tr>
             <th>#</th>
             <th>Feedback</th>
-            <th>Company Name</th>
+            {company !== undefined && <th>Company Name</th>}
           </tr>
         </thead>
           {
@@ -57,7 +57,7 @@ function FeedbackRow(props){
       <tr>
         <td>{index}</td>
         <td>{feedback.text}</td>
-        <td>{company.name}</td>                
+        <td>{company !== undefined  && company.name }</td>
       </tr>
     </tbody>
   )

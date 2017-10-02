@@ -16,16 +16,30 @@ export const listFeedback = (user_id) => {
   }
 }
 
+export const listFeedbackCompany = (company_id) => {
+  const request = axios({
+    method: 'post',
+    url: '/company/feedbacks',
+    headers: [],
+    data: company_id
+  })
+
+  return{
+    type: 'LIST_COMPANY_FEEDBACK',
+    payload: request
+  }
+}
+
 export const listFeedbackSuccess = (feedbscks) =>{
   return{
-    type: 'LIST_USER_FEEDBACK_SUCCESS',
+    type: 'LIST_FEEDBACK_SUCCESS',
     payload: feedbscks
   }
 }
 
 export const listFeedbackFailure = (err) =>{
   return{
-    type: 'LIST_USER_FEEDBACK_FAILURE',
+    type: 'LIST_FEEDBACK_FAILURE',
     payload: err
   }
 }

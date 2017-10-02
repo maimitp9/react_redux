@@ -20,6 +20,8 @@ class NewFeedback extends Component{
     const company_id = this.props.company_id;
     const feedback_list = this.props.feedback_list;
     const {company} = this.props.activeCompany;
+    const feedback_collapse = this.props.feedback_collapse;
+    const {selected} = this.props.toggle;
 
     if(loading){
       return <div className="container"><h1>Feedback Creating...</h1><h3>Loading...</h3></div>
@@ -28,7 +30,7 @@ class NewFeedback extends Component{
     }
 
     return(
-        <FeedbackForm employee_id={employee_id} company_id={company_id} company={company}  feedback_list={feedback_list} onSubmit={this.submitForm} />
+        <FeedbackForm employee_id={employee_id} company_id={company_id} company={company}  feedback_list={feedback_list} feedback_collapse = {feedback_collapse} selected_feedback={selected} onSubmit={this.submitForm} />
     )
   }
 }

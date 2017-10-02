@@ -6,6 +6,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     employee_id: ownProps.employee_id,
     company_id: ownProps.company_id,
+    feedback_collapse: ownProps.feedback_collapse,
+    toggle: state.companies.feedbackToggle,
     feedback_list: state.feedbacks.listFeedback,
     createdFeedback: state.feedbacks.createFeedback,
     activeCompany: state.companies.activeCompany
@@ -16,7 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     listFeedback: (user_id) => {
       (dispatch(listFeedback(user_id)).payload)
-        .then( (response) => {
+      .then( (response) => {
           (!response.error && response.status === 200) ?
             dispatch(listFeedbackSuccess(response.data))
             :

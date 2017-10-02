@@ -162,9 +162,9 @@ export const deleteCompanyFailure = (err) => {
   }
 }
 
-export const feedbackToggle = (value, selectedUser) =>{
+export const feedbackToggle = (selected) =>{
   return{
     type: "FEEDBACK_TOGGEL",
-    payload: {status: value, selected: selectedUser}
+    payload: {selected: selected}
   }
 }

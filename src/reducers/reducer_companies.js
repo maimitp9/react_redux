@@ -68,7 +68,7 @@ const companies = ( state = INITIAL_STATE, action) => {
       error = action.payload || { message:  action.payload.message }
       return {...state, deleteCompany: {company: null, error: error, loading: false}}
     case 'FEEDBACK_TOGGEL':
-      return {...state, feedbackToggle: { status: action.payload.status, selected: action.payload.selected } }
+      return {...state, feedbackToggle: { selected: action.payload.selected } }
 
     default:
       return state;

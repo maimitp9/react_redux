@@ -8,13 +8,13 @@ export default class ShowCompany extends Component{
     this.props.feedbackToggle(false)
   }
 
-  handleFeedback = (status, selectedUser) => {
-    this.props.feedbackToggle(status, selectedUser)
+  handleFeedback = (selected) => {
+    this.props.feedbackToggle(selected)
   }
 
   render(){
     const { company, error, loading } = this.props.activeCompany;
-    const feedbackToggle = this.props.toogle
+    const feedbackToggle = this.props.toggle
     if(loading){
       return <div className="container"><h1>Company</h1><h3>Loading...</h3></div>
     }else if(error) {
@@ -59,7 +59,7 @@ function EmployeesDetails(props){
         <th>First Name</th>
         <th>Last Name</th>
         <th>Gender</th>
-        <th>Ptofile Picture</th>
+        <th>Profile Picture</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -75,7 +75,8 @@ function EmployeesDetails(props){
 function EmployeeRow(props){
   const employee = props.employee;
   const index = props.index;
-  const { status, selected } = props.feedbackToggle;
+  const { selected } = props.feedbackToggle;
+  const feedback_id = "feedback_" + index
   return(
     <tbody>
     <tr>
@@ -85,13 +86,13 @@ function EmployeeRow(props){
       <td>{employee.gender === "1" ? "Male" : "Female"}</td>
       <td><img src={`http://localhost:3000/uploads/${employee.filename}`} alt={employee.filename}/></td>
       <td>
-          <button onClick={props.handleFeedback.bind(this, !status, index)} className= {`btn btn-primary` } >Feedback</button>
+          <button onClick={props.handleFeedback.bind(this, feedback_id)} className= {`btn btn-primary`} data-toggle="collapse" data-target={`#${feedback_id}`} >Feedback</button>
           <Link to={`/users/${employee._id}/profile`} className= "btn btn-success">Show</Link>
           <Link to={`/users/${employee._id}/edit`} className= "btn btn-default">Edit</Link>        
           <button onClick={props.deleteUser.bind(this, employee._id, props.employeeList)} className="btn btn-danger">Delete</button>
       </td>
     </tr>
-    {(selected === index && status) && <NewFeedbackContainer employee_id={employee._id} company_id={employee.company}  /> }   
+    { selected === feedback_id && <NewFeedbackContainer employee_id={employee._id} company_id={employee.company} feedback_collapse={feedback_id} />}
   </tbody>
   )
 }

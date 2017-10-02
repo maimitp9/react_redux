@@ -37,7 +37,7 @@ class User extends Component{
           <th>First Name</th>
           <th>Last Name</th>
           <th>Gender</th>
-          <th>Ptofile Picture</th>
+          <th>Profile Picture</th>
           <th>Actions</th>
         </tr>
       </thead>

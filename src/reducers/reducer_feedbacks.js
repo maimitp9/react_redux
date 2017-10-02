@@ -12,9 +12,11 @@ const feedbacks = (state = INITIAL_STATE, action) =>{
     //
     case 'LIST_USER_FEEDBACK':
       return {...state, listFeedback: { feedbacks: [], error: null, loading:true}}
-    case 'LIST_USER_FEEDBACK_SUCCESS':
+    case 'LIST_COMPANY_FEEDBACK':
+      return {...state, listFeedback: { feedbacks: [], error: null, loading:true}}    
+    case 'LIST_FEEDBACK_SUCCESS':
       return {...state, listFeedback: { feedbacks: action.payload.feedback, error: null, loading: false, status: action.payload.success}}
-    case 'LIST_USER_FEEDBACK_FAILURE':
+    case 'LIST_FEEDBACK_FAILURE':
       error = action.payload || {message: action.payload.message}
       return {...state, listFeedback: {feedbacks: [], error: error, loading: false}}
       

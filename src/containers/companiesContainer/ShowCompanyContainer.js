@@ -8,7 +8,7 @@ const mapStateToProps = (state, newProps) =>{
   return{
     activeCompany: state.companies.activeCompany,
     deletedUser: state.users.deletedUser,
-    toogle: state.companies.feedbackToggle
+    toggle: state.companies.feedbackToggle
   }
 }
 
@@ -31,8 +31,8 @@ const mapDispathToProps = (dispatch) =>{
         })
     },
 
-    feedbackToggle: (value, selectedUser) =>{
-      dispatch(feedbackToggle(value, selectedUser))
+    feedbackToggle: (selected) =>{
+      dispatch(feedbackToggle(selected))
     }
   }
 }
