@@ -4,7 +4,7 @@
 a{
 	text-decoration: none;
 }
-img{
+img.user_profile_pic{
   min-height: 150px;
   max-height: 150px;
   min-width: 150px;

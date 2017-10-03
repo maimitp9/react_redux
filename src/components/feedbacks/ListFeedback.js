@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import '../../css/ListFeedback.css';
 
 class ListFeedback extends Component {
   render(){
@@ -30,20 +30,11 @@ function FeedbackDetails(props){
   const company = props.company;
   return(
     <div>
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Feedback</th>
-            {company !== undefined && <th>Company Name</th>}
-          </tr>
-        </thead>
-          {
-            feedbacks.map( (feedback, index) => {
-              return <FeedbackRow company={company} feedback={feedback} index={++index} key={index} />
-            })
-          }
-      </table>
+      {
+        feedbacks.map( (feedback, index) => {
+          return <FeedbackRow company={company} feedback={feedback} index={++index} key={index} />
+        })
+      }
     </div>
   )
 }
@@ -53,12 +44,37 @@ function FeedbackRow(props){
   const index = props.index;
   const company = props.company;
   return(
-    <tbody>
-      <tr>
-        <td>{index}</td>
-        <td>{feedback.text}</td>
-        <td>{company !== undefined  && company.name }</td>
-      </tr>
-    </tbody>
+      <div className="col-md-6">
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <p>{feedback.text}</p>
+            
+            <div>
+              {company !== undefined  ? 
+                <p>
+                  <strong>Company Name: </strong>{company.name}
+                </p>
+              :
+                <div><UserInfo feedback={feedback} /></div>
+              }</div>
+          </div>
+        </div>
+      </div>
+  )
+}
+
+const UserInfo = (props) => {
+  const {user} = props.feedback;
+  console.log()
+  return(
+    <div>
+      { 
+        user &&
+        <div>
+          <img src={`http://localhost:3000/uploads/${user.filename}`} alt={`${user.filename}`} className="feedback_thumb" />
+          <p>{user.fname + " " + user.lname}</p>
+        </div>
+      }
+    </div>
   )
 }

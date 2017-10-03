@@ -84,9 +84,9 @@ function EmployeeRow(props){
       <td>{employee.fname}</td>
       <td>{employee.lname}</td>
       <td>{employee.gender === "1" ? "Male" : "Female"}</td>
-      <td><img src={`http://localhost:3000/uploads/${employee.filename}`} alt={employee.filename}/></td>
+      <td><img src={`http://localhost:3000/uploads/${employee.filename}`} alt={employee.filename} className="user_profile_pic" /></td>
       <td>
-          <button onClick={props.handleFeedback.bind(this, feedback_id)} className= {`btn btn-primary`} data-toggle="collapse" data-target={`#${feedback_id}`} >Feedback</button>
+          <button onClick={props.handleFeedback.bind(this, feedback_id)} className= {` clickable btn btn-primary`} data-toggle="collapse" data-target={`#${feedback_id}`} >Feedback</button>
           <Link to={`/users/${employee._id}/profile`} className= "btn btn-success">Show</Link>
           <Link to={`/users/${employee._id}/edit`} className= "btn btn-default">Edit</Link>        
           <button onClick={props.deleteUser.bind(this, employee._id, props.employeeList)} className="btn btn-danger">Delete</button>

@@ -16,12 +16,14 @@ class ListCompanies extends Component{
     this.props.deleteCompany(id, companies)
   }
 
-  companyFeedbacks = (company_id) => {
+  companyFeedbacks = (company_id, selected) => {
+    this.props.feedbackToggle(selected)
     this.props.listFeedbackCompany({company_id: company_id})
   }
 
   render(){
     const { companies, error, loading } = this.props.companiesList;
+    const {selected} = this.props.toggle;
     if(loading){
       return <div className="container"><h1>Users</h1><h3>Loading...</h3></div>
     }else if (error) {
@@ -33,14 +35,14 @@ class ListCompanies extends Component{
         <h1>Company List
           <Link to="/company/new" className="btn btn-primary pull-right">New Company</Link>
         </h1>
-        <CompanyDetails companies = {companies} onDelete = {this.handleDelete} companyFeedbacks = {this.companyFeedbacks} feedback_list = {this.props.feedback_list} />
+        <CompanyDetails companies = {companies} onDelete = {this.handleDelete} companyFeedbacks = {this.companyFeedbacks} feedback_list = {this.props.feedback_list} selected={selected} />
       </div>
     );
   }
 }
 
   const CompanyDetails = (props) => {
-    const { companies , onDelete, companyFeedbacks, feedback_list} = props
+    const { companies , onDelete, companyFeedbacks, feedback_list, selected} = props
     return (
       <table className="table table-hover">
         <thead>
@@ -53,7 +55,7 @@ class ListCompanies extends Component{
         </thead>
           {companies.map((company, index) => {
             return (
-              <CompanyRow key={index} companies={companies} company={company}  index={++index} onDelete={onDelete} companyFeedbacks={companyFeedbacks} feedback_list = {feedback_list} />
+              <CompanyRow key={index} companies={companies} company={company}  index={++index} onDelete={onDelete} companyFeedbacks={companyFeedbacks} feedback_list = {feedback_list} selected={selected} />
             )
           })}
       </table>
@@ -61,8 +63,8 @@ class ListCompanies extends Component{
   }
 
   const CompanyRow = (props) => {
-    const {companies, company, index, onDelete, companyFeedbacks, feedback_list} = props
-    const feedback_id = "feedback_" + index;
+    const {companies, company, index, onDelete, companyFeedbacks, feedback_list, selected} = props
+    const feedback_id = "company_feedback_" + index;
     return (
       <tbody>      
       <tr>
@@ -70,18 +72,21 @@ class ListCompanies extends Component{
         <td>{company.name}</td>
         <td>{company.numberOfEmployees}</td>
         <td>
-          <button onClick={companyFeedbacks.bind(this, company._id)} data-toggle="collapse" data-target={`#${feedback_id}`} className="btn btn-info">Show Feedback</button>
+          <button onClick={companyFeedbacks.bind(this, company._id, feedback_id)} data-toggle="collapse" data-target={`#${feedback_id}`} className="btn btn-info">Show Feedback</button>
           <Link to={`/users/${company._id}/new-user`} className="btn btn-primary">New User</Link>
           <Link to={`/company/${company._id}/profile`} className="btn btn-success">Show</Link>
           <Link to={`/company/${company._id}/edit`} className="btn btn-default">Edit</Link>
           <button onClick = {onDelete.bind(this,company._id, companies)} className="btn btn-danger">Delete</button>
         </td>
       </tr>
-      <tr id={feedback_id} className="collapse">
-        <td colSpan={4}>
-          <ListFeedback feedback_list = {feedback_list} />
-        </td>
-      </tr>
+      {
+        selected === feedback_id &&
+        <tr id={feedback_id} className={`collapse ${feedback_id === selected && `in`}`}>
+          <td colSpan={4}>
+            <ListFeedback feedback_list = {feedback_list} />
+          </td>
+        </tr>
+      } 
       </tbody>
     )
   }

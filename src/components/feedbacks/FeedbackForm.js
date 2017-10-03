@@ -20,7 +20,7 @@ class FeedbackForm extends Component{
     const selected_feedback = this.props.selected_feedback;
     return(
       <tr id={feedback_id} className={`collapse ${feedback_id === selected_feedback && `in`}`}>
-        <td colSpan={6}>
+        <td colSpan={6} >
           <div className="panel panel-info">
             <div className="panel-heading"> Write Feedback</div>
             <div className="panel-body">
