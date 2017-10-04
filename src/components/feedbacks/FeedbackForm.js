@@ -34,7 +34,7 @@ class FeedbackForm extends Component{
               </form>
             </div>
           </div>
-          <ListFeedback company={company} feedback_list={feedback_list} />
+          <ListFeedback company={company} feedback_list={feedback_list} feedback_pagination={this.props.feedback_pagination} />
         </td>
       </tr>
     )

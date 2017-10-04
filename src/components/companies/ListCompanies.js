@@ -35,14 +35,14 @@ class ListCompanies extends Component{
         <h1>Company List
           <Link to="/company/new" className="btn btn-primary pull-right">New Company</Link>
         </h1>
-        <CompanyDetails companies = {companies} onDelete = {this.handleDelete} companyFeedbacks = {this.companyFeedbacks} feedback_list = {this.props.feedback_list} selected={selected} />
+        <CompanyDetails companies = {companies} onDelete = {this.handleDelete} companyFeedbacks = {this.companyFeedbacks} feedback_list = {this.props.feedback_list} feedback_pagination={this.props.feedback_pagination} selected={selected} />
       </div>
     );
   }
 }
 
   const CompanyDetails = (props) => {
-    const { companies , onDelete, companyFeedbacks, feedback_list, selected} = props
+    const { companies , onDelete, companyFeedbacks, feedback_list, selected, feedback_pagination} = props
     return (
       <table className="table table-hover">
         <thead>
@@ -55,7 +55,7 @@ class ListCompanies extends Component{
         </thead>
           {companies.map((company, index) => {
             return (
-              <CompanyRow key={index} companies={companies} company={company}  index={++index} onDelete={onDelete} companyFeedbacks={companyFeedbacks} feedback_list = {feedback_list} selected={selected} />
+              <CompanyRow key={index} companies={companies} company={company}  index={++index} onDelete={onDelete} companyFeedbacks={companyFeedbacks} feedback_list = {feedback_list} selected={selected} feedback_pagination={feedback_pagination} />
             )
           })}
       </table>
@@ -63,7 +63,7 @@ class ListCompanies extends Component{
   }
 
   const CompanyRow = (props) => {
-    const {companies, company, index, onDelete, companyFeedbacks, feedback_list, selected} = props
+    const {companies, company, index, onDelete, companyFeedbacks, feedback_list, selected, feedback_pagination} = props
     const feedback_id = "company_feedback_" + index;
     return (
       <tbody>      
@@ -83,7 +83,7 @@ class ListCompanies extends Component{
         selected === feedback_id &&
         <tr id={feedback_id} className={`collapse ${feedback_id === selected && `in`}`}>
           <td colSpan={4}>
-            <ListFeedback feedback_list = {feedback_list} />
+            <ListFeedback feedback_list = {feedback_list} feedback_pagination={feedback_pagination} />
           </td>
         </tr>
       } 

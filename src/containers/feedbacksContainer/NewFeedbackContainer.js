@@ -10,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
     toggle: state.companies.feedbackToggle,
     feedback_list: state.feedbacks.listFeedback,
     createdFeedback: state.feedbacks.createFeedback,
-    activeCompany: state.companies.activeCompany
+    activeCompany: state.companies.activeCompany,
+    feedback_pagination: state.pagination.setPagination     
   }
 }
 

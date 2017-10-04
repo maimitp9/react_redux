@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => {
     companiesList: state.companies.companiesList,
     deleteCompany: state.companies.deleteCompany,
     toggle: state.companies.feedbackToggle,
-    feedback_list: state.feedbacks.listFeedback
+    feedback_list: state.feedbacks.listFeedback,
+    feedback_pagination: state.pagination.setPagination 
   }
 }
 

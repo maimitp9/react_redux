@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import Pagination from '../../containers/paginationContainer/PaginationContainer';
 import '../../css/ListFeedback.css';
 
 class ListFeedback extends Component {
+
   render(){
     const { feedbacks, error, loading } = this.props.feedback_list;
     const company = this.props.company;
+    const {currentData} = this.props.feedback_pagination;
 
     if(loading){
       return <div className="container"><h3>Feedback list Loading...</h3></div>
@@ -15,8 +18,14 @@ class ListFeedback extends Component {
     return(
       <div className="panel panel-default">
         <div className="panel-heading">Feedback List</div>
-        <div className="panel-body">          
-          <FeedbackDetails company={company} feedbacks={feedbacks} />
+        <div className="panel-body">
+          <div className="row">          
+            <FeedbackDetails company={company} feedbacks={currentData} />
+          </div>
+          
+          <div className="row">
+            <Pagination data={feedbacks} currentPage={1} perPage={10} />
+          </div>
         </div>
       </div>
     )
@@ -41,7 +50,6 @@ function FeedbackDetails(props){
 
 function FeedbackRow(props){
   const feedback = props.feedback;
-  const index = props.index;
   const company = props.company;
   return(
       <div className="col-md-6">
@@ -65,7 +73,6 @@ function FeedbackRow(props){
 
 const UserInfo = (props) => {
   const {user} = props.feedback;
-  console.log()
   return(
     <div>
       { 
