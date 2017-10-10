@@ -12,7 +12,7 @@ class Pagination extends Component {
   }
 
   render() {
-    const { data, currentData, currentPage, perPage, loading} = this.props.pagination_list;
+    const { data, perPage, loading} = this.props.pagination_list;
     if(loading){
       return <h3 className="text-center">Loading</h3>
     }

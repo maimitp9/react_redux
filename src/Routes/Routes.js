@@ -12,6 +12,8 @@ import ShowCompanyContainer from "../containers/companiesContainer/ShowCompanyCo
 import NewCompanyContainer from '../containers/companiesContainer/NewCompanyContainer'; // new company
 import EditCompanyContainer from '../containers/companiesContainer/EditCompanyContainer'; // edit company
 
+import Login from '../components/auth/login'
+
 export default()=>(
   <Switch>
     {/*  User Routes */}
@@ -26,6 +28,7 @@ export default()=>(
     <Route path="/company/new" exact component={NewCompanyContainer}/>
     <Route path="/company/:id/profile" exact component={ShowCompanyContainer} />
     <Route path="/company/:id/edit" exact component={EditCompanyContainer} />
+    <Route path="/auth/login" exact component={Login} />
     
     {/*  always at the end */}
     <Route component={NotFound} />

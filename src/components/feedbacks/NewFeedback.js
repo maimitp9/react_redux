@@ -15,7 +15,7 @@ class NewFeedback extends Component{
   }
 
   render(){
-    const {feedback, error, loading} = this.props.createdFeedback;
+    const {error, loading} = this.props.createdFeedback;
     const employee_id = this.props.employee_id;
     const company_id = this.props.company_id;
     const feedback_list = this.props.feedback_list;

@@ -51,6 +51,13 @@ class UserForm extends Component{
           placeholder="Enter Email"
           component={renderField}
           validate={email} />
+        <Field
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="Enter Password"
+          component={renderField}
+          validate={required} />
         <Field component={UploadFile} name='avatar' onChange={this.imagePreview.bind(this)} />
         { imgSrc && <img src={this.state.imgSrc} alt="" />  }
         
