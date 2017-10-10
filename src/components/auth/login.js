@@ -4,7 +4,14 @@ import renderField from '../../components/renderField';
 
 class Login extends Component {
   submitLoginForm(values) {
-    console.log(values)
+    this.props.loginUser(values);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.auth)
+    if (nextProps.auth.authenticated){
+      this.props.history.push('/companies')
+    }
   }
   render(){
     const { handleSubmit, pristine, reset, submitting } = this.props;
@@ -14,7 +21,7 @@ class Login extends Component {
           <div className='panel panel-default'>
             <div className='panel-heading'>Login Form</div>
             <div className='panel-body'>
-              <form onSubmit={handleSubmit(this.submitLoginForm)} >
+              <form onSubmit={handleSubmit(this.submitLoginForm.bind(this))} >
                 <Field name='email' type='email' label='Email' placeholder='Enter e-mail address' component={renderField} validate={email} />
                 <Field name='password' type='password' label='password' placeholder="Enter password" component = {renderField} validate={required} />
                 <button type="submit" disabled={submitting} className="btn btn-success">Submit</button>

@@ -1,8 +1,6 @@
 import React,  {Component} from 'react';
 import UserForm from './UserForm'
 
-
-
 class NewUser extends Component{
   
   componentWillUnmount(){
