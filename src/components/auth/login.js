@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import renderField from '../../components/renderField';
 
 class Login extends Component {
+
   submitLoginForm(values) {
     this.props.loginUser(values);
   }
@@ -14,9 +15,13 @@ class Login extends Component {
   }
   render(){
     const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { error } = this.props.auth;
     return(
       <div className="col-md-offset-3">
         <div className="col-md-6">
+          {
+            error && <div className="alert alert-danger">{error}</div>
+          }
           <div className='panel panel-default'>
             <div className='panel-heading'>Login Form</div>
             <div className='panel-body'>
@@ -25,6 +30,7 @@ class Login extends Component {
                 <Field name='password' type='password' label='password' placeholder="Enter password" component = {renderField} validate={required} />
                 <button type="submit" disabled={submitting} className="btn btn-success">Submit</button>
                 <button type="button" disabled={pristine || submitting} onClick={reset} className="btn btn-default">Clear</button>
+                <a href="#" className="btn btn-primary">Facebook</a>
               </form>
             </div>
           </div>
