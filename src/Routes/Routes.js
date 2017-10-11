@@ -13,21 +13,22 @@ import NewCompanyContainer from '../containers/companiesContainer/NewCompanyCont
 import EditCompanyContainer from '../containers/companiesContainer/EditCompanyContainer'; // edit company
 
 import loginContainer from '../containers/authContainer/loginContainer';
+import PrivateRoute from '../components/auth/RequireAuth';
 
 export default()=>(
   <Switch>
     {/*  User Routes */}
     <Route path="/" exact component={Home} />
-    <Route path="/users" exact component={UsersIndex} />
-    <Route path="/users/:id/profile" exact component={ShowUser} />
-    <Route path="/users/:company_id/new-user" exact component={NewUserContainer} />
-    <Route path="/users/:id/edit" exact component={EditUserContainer} />
+    <PrivateRoute path="/users" exact component={UsersIndex} />
+    <PrivateRoute path="/users/:id/profile" exact component={ShowUser} />
+    <PrivateRoute path="/users/:company_id/new-user" exact component={NewUserContainer} />
+    <PrivateRoute path="/users/:id/edit" exact component={EditUserContainer} />
 
     {/* Company Routes */}
-    <Route path="/companies" exact component={ListCompaniesContainer} />
-    <Route path="/company/new" exact component={NewCompanyContainer}/>
-    <Route path="/company/:id/profile" exact component={ShowCompanyContainer} />
-    <Route path="/company/:id/edit" exact component={EditCompanyContainer} />
+    <PrivateRoute path="/companies" exact component={ListCompaniesContainer} />
+    <PrivateRoute path="/company/new" exact component={NewCompanyContainer}/>
+    <PrivateRoute path="/company/:id/profile" exact component={ShowCompanyContainer} />
+    <PrivateRoute path="/company/:id/edit" exact component={EditCompanyContainer} />
     <Route path="/auth/login" exact component={loginContainer} />
     
     {/*  always at the end */}

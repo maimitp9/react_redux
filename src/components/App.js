@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Routes from '../Routes/Routes';
-import Header from '../layout/Header';
+// tag name must be capital
+import Header from '../containers/headerContainer';
 import '../css/App.css';
 
 class App extends Component {

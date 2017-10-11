@@ -8,7 +8,6 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.auth)
     if (nextProps.auth.authenticated){
       this.props.history.push('/companies')
     }

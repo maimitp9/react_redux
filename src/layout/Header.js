@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import loginContainer from '../containers/authContainer/loginContainer'
 
 class Header extends Component{
 
-  render(){
+	logoutUser = () => {
+		this.props.logout()
+	}
+	renderLinks(){
+		if(this.props.authenticated) {
+			return(
+				<div>
+					<li><Link to="/companies">Companies</Link></li>
+					<li><a href="javascript:void(0)" onClick={this.logoutUser.bind(this)}>Logout</a></li>
+				</div>
+			)
+		}else{
+			return (<li><Link to="/auth/login">Login</Link></li>)
+		} 
+	}
 
+  render(){
     return(
 			<nav className="navbar navbar-default">
 			  <div className="container-fluid">
@@ -21,8 +35,7 @@ class Header extends Component{
 
 			    <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			      <ul className="nav navbar-nav navbar-right">
-							<li><Link to="/companies">Companies</Link></li>
-							<li><Link to="/auth/login">Login</Link></li>
+							{this.renderLinks()}
 							{/* <li><Link to="/users">Users</Link></li> */}
 			      </ul>
 			    </div>
@@ -31,4 +44,5 @@ class Header extends Component{
     )
   }
 }
+
 export default Header;
