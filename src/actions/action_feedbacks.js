@@ -7,7 +7,7 @@ export const listFeedback = (user_id) => {
   const request = axios({
     method: 'post',
     url: '/user/feedbacks',
-    headers: [],
+    headers: {},
     data: user_id 
   })
   return{
@@ -20,7 +20,7 @@ export const listFeedbackCompany = (company_id) => {
   const request = axios({
     method: 'post',
     url: '/company/feedbacks',
-    headers: [],
+    headers: {},
     data: company_id
   })
 
@@ -51,7 +51,7 @@ export const createFeedback = (feedbackData) => {
   const request = axios({
     method: 'post',
     url: '/feedback/create',
-    headers: [],
+    headers: {},
     data: feedbackData
   })
 

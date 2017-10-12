@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 // import {persistStore, autoRehydrate} from 'redux-persist'
 import { composeWithDevTools} from 'redux-devtools-extension';
 import allReducers from './reducers';
+import { getUser, setUser, loginUserFailure } from './actions/action_auth';
 
 const store = createStore(
   allReducers,
@@ -21,6 +22,25 @@ const store = createStore(
 
 // begin periodically persisting the store
 // persistStore(store)
+
+const user = localStorage.getItem('access_token')
+let next = store;
+if(user){
+  (store.dispatch(getUser(user)).payload)
+  .then((response) => {
+    (response.status === 200) ? 
+      store.dispatch(setUser(response.data))
+    :
+      store.dispatch(loginUserFailure(response.data))
+    })
+
+}
+
+const mapStateToProps = (state) => {
+  return{
+    auth: state.authentication.loggedinUser
+  }
+}
 
 ReactDOM.render(
     <Provider store={store} >

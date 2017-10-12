@@ -7,7 +7,7 @@ export const fetchUsers = () =>{
   const request = axios({
     method: 'get',
     url: `/users`,
-    headers: []
+    headers: {}
   });
   return {
     type: "FETCH_USERS",
@@ -36,7 +36,7 @@ export function createUser(data){
 	const request = axios({
     method: 'post',
     url: '/user/create',
-    headers: [],
+    headers: {},
     data: data
   });
   return{
@@ -91,7 +91,7 @@ export function editUser(userData){
   const request = axios({
     method: 'post',
     url: `/user/${userData.get('_id')}/update`,
-    header: [],
+    header: {},
     data: userData
   })
   return{
@@ -127,9 +127,7 @@ export function deleteUser(id){
   const request = axios({
     method: 'delete',
     url: `/user/${id}/delete`,
-    headers: {
-    'Authorization': "pass_auth_tokan"
-    }
+    headers: {}
   })
   return{
     type: "DELETE_USER",

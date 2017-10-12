@@ -7,7 +7,7 @@ export const getCompanies = ()  =>{
   let request = axios({
     method: 'get',
     url: '/companies',
-    headers: []
+    headers: {}
   });
 
   return{
@@ -39,7 +39,7 @@ export const fetchCompany = (id) =>{
   let request = axios({
     method: 'get',
     url: `/company/${id}`,
-    headers: []
+    headers: {}
   })
   return{
     type: 'FETCH_COMPANY',
@@ -70,7 +70,7 @@ export const newCompany = (companyData) =>{
   let request = axios({
     method: 'post',
     url: `/company/create`,
-    headers: [],
+    headers: {},
     data: companyData
   })
   return{
@@ -100,7 +100,7 @@ export const editCompany = (companyData) =>{
   let request = axios({
     method: 'post',
     url: `/company/${companyData._id}/update`,
-    headers: [],
+    headers: {},
     data: companyData
   })
   return{
@@ -136,7 +136,7 @@ export const deleteCompany = (id) => {
   let request = axios({
     method: 'delete',
     url: `/company/${id}`,
-    headers: []
+    headers: {}
   })
   return{
     type: 'DELETE_COMPANY',
